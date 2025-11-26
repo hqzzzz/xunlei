@@ -126,6 +126,32 @@ services:
     restart: unless-stopped
 ```
 
+services:
+  xunlei:
+    image: ghcr.io/hqzzzz/xunlei:latest
+    container_name: xunlei
+    restart: always
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined  # 禁用seccomp，允许挂载
+    environment:
+      - TZ=Asia/Shanghai
+      - XL_DASHBOARD_PORT=2345
+      - XL_DASHBOARD_USERNAME=admin
+      - XL_DASHBOARD_PASSWORD=Tongtong521
+      - XL_UID=1000
+      - XL_GID=1000
+      - XL_DEBUG=false
+    volumes:
+      - /share/nasTool/xunlei/data:/xunlei/data
+      - /share/Temp/XLTemps:/xunlei/downloads
+    network_mode: host
+    #networks:
+    #  - t3net
+
+
+
 ## 镜像构建流程
 
 1. 前往迅雷NAS版本官网下载最新版本的迅雷套件，下载地址：<https://nas.xunlei.com/>
